@@ -86,7 +86,7 @@ Tega-Michael-Project-main/
         └── gold_aggregate.py
 ```
 
-> **Note:** In the current repo snapshot, `bronze_ingest.py`, `silver_transform.py`, and `gold_aggregate.py` are placeholders (empty files). The README describes the intended behavior and expected outputs.
+> **Note:** Current repo snapshot
 
 ---
 
@@ -284,7 +284,8 @@ spark-shell
 ---
 
 ## Team
-- (Add team members here)
+- Michael Chen
+- Tega Omarejedje
 
 ---
 
