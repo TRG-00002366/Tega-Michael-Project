@@ -286,6 +286,7 @@ spark-shell
 ## Team
 - Michael Chen
 - Tega Omarejedje
+- Brian Tokumoto
 
 ---
 
@@ -301,5 +302,6 @@ spark-shell
 The dataset is published by the NYC Taxi & Limousine Commission (TLC).
 
 Download the official trip record data here:
+
 
 [NYC TLC Trip Record Data Portal](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
