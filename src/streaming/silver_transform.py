@@ -23,16 +23,6 @@ SILVER_PATH = "data/silver"
 def build_spark() -> SparkSession:
     spark = (
         SparkSession.builder
-        .appName("TaxiOps-Gold-Aggregate")
-        .master("local[*]")
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel("WARN")
-    return spark
-
-def build_spark() -> SparkSession:
-    spark = (
-        SparkSession.builder
         .appName("TaxiOps-Silver-Transform")
         .master("local[*]")
         .getOrCreate()
