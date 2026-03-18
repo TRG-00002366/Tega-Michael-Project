@@ -2,13 +2,15 @@ import json
 import uuid
 import random
 import time
-from datetime import datetime, timedelta
+import argparse
+from datetime import datetime, timedelta, UTC
 from faker import Faker
 from kafka import KafkaProducer
 
 
 fake = Faker()
 TOPIC = "nyc_taxi_trips"
+
 
 def generate_trip():
     pickup_time = fake.date_time_this_year()
@@ -51,11 +53,16 @@ def generate_trip():
         "congestion_surcharge": congestion_surcharge,
         "airport_fee": 0.0,
         "total_amount": total_amount,
-        "event_timestamp": datetime.utcnow().isoformat()
+        "event_timestamp": datetime.now(UTC).isoformat()
     }
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(description="Produce fake NYC taxi trip events to Kafka")
+    parser.add_argument("--num-events", type=int, default=500, help="Number of events to produce")
+    parser.add_argument("--sleep-seconds", type=float, default=0.5, help="Delay between events")
+    args = parser.parse_args()
+
     producer = KafkaProducer(
         bootstrap_servers="localhost:9092",
         value_serializer=lambda v: json.dumps(v).encode("utf-8")
@@ -65,7 +72,7 @@ if __name__ == "__main__":
 
     sent = 0
     try:
-        while True:
+        for _ in range(args.num_events):
             trip = generate_trip()
             producer.send(TOPIC, trip)
             sent += 1
@@ -74,10 +81,14 @@ if __name__ == "__main__":
                 producer.flush()
                 print(f"Sent {sent} events (latest={trip['event_id']})")
 
-            time.sleep(1)
+            time.sleep(args.sleep_seconds)
 
-    except KeyboardInterrupt:
-        print("Stopping producer...")
+        print(f"Finished producing {sent} events.")
+
     finally:
         producer.flush()
         producer.close()
+
+
+if __name__ == "__main__":
+    main()

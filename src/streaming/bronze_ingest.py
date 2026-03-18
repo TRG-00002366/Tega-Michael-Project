@@ -62,6 +62,7 @@ def main():
         .option("kafka.bootstrap.servers", BOOTSTRAP_SERVERS)
         .option("subscribe", TOPIC)
         .option("startingOffsets", "latest")
+        .option("maxOffsetsPerTrigger", 500)
         .load()
     )
 
@@ -84,7 +85,7 @@ def main():
         .option("path", BRONZE_PATH)
         .option("checkpointLocation", CHECKPOINT_PATH)
         .partitionBy("pickup_date")
-        .trigger(processingTime="10 seconds")
+        .trigger(processingTime="1 minute")
         .start()
     )
 
