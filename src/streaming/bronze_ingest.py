@@ -13,7 +13,7 @@ CHECKPOINT_PATH = "data/checkpoints/bronze"
 
 
 def build_spark() -> SparkSession:
-    packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.8"
+    packages = "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
 
     spark = (
         SparkSession.builder
