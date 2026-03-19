@@ -3,8 +3,9 @@ FROM apache/airflow:2.9.1
 USER root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    openjdk-17-jdk \
+    openjdk-17-jre-headless \
     procps \
+    curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -13,4 +14,7 @@ ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 USER airflow
 
-RUN pip install --no-cache-dir psycopg2-binary kafka-python pyspark==3.5.1
+RUN pip install --no-cache-dir \
+    pyspark==3.5.1 \
+    kafka-python \
+    psycopg2-binary
